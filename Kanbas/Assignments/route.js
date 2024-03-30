@@ -24,7 +24,7 @@ function AssignmentRoutes(app) {
           course: cid,
           _id: new Date().getTime().toString(),
         };
-        db.modules.push(newAssignment);
+        db.assignments.push(newAssignment);
         res.send(newAssignment);
       });
     
