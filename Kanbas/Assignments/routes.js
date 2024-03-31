@@ -31,9 +31,16 @@ function AssignmentRoutes(app) {
     app.get("/api/courses/:cid/assignments", (req, res) => {
         const { cid } = req.params;
         const assignments = db.assignments
-        .filter((m) => m.course === cid);
+        .filter((a) => a.course === cid);
         res.send(assignments);
     });
+
+  //   app.get("/api/courses/:cid/modules", (req, res) => {
+  //     const { cid } = req.params;
+  //     const modules = db.modules
+  //     .filter((m) => m.course === cid);
+  //     res.send(modules);
+  // });
 }
 export default AssignmentRoutes;
 
