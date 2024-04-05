@@ -38,5 +38,5 @@ AssignmentRoutes(app);
 Hello(app)
 Lab5(app);
 UserRoutes(app)
-app.listen(process.env.PORT || 4000);
+app.listen(process.env.DB_CONNECTION_STRING || 4000);
 
