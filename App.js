@@ -10,7 +10,9 @@ import ModuleRoutes from "./Kanbas/Modules/routes.js";
 import AssignmentRoutes from "./Kanbas/Assignments/routes.js";
 import cors from "cors";
 
-mongoose.connect("mongodb://127.0.0.1:27017/kanbas");
+const CONNECTION_STRING = process.env.DB_CONNECTION_STRING || 'mongodb://127.0.0.1:27017/kanbas'
+mongoose.connect(CONNECTION_STRING);
+
 const app = express()
 app.use(express.json());
 
@@ -38,5 +40,5 @@ AssignmentRoutes(app);
 Hello(app)
 Lab5(app);
 UserRoutes(app)
-app.listen(process.env.DB_CONNECTION_STRING || 4000);
+app.listen(process.env.PORT || 4000);
 
