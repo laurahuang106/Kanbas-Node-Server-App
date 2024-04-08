@@ -11,7 +11,7 @@ export const updateQuiz = async(quizId, quiz) =>  model.updateOne({ _id: quizId 
 export const deleteQuiz = async(quizId) => model.deleteOne({ _id: quizId });
 
 // actions for questions
-export const addQuestionToQuiz = async (quizId, questionData) => {
+export const createQuestion = async (quizId, questionData) => {
     const quiz = await model.findById(quizId);
     quiz.questions.push(questionData);
     await quiz.save();
@@ -21,7 +21,7 @@ export const findQuestionById = async (quizId, questionId) => {
     const quiz = await model.findById(quizId);
     return quiz.questions.id(questionId); // Mongoose subdocument querying syntax
 };
-export const updateQuestionInQuiz = async (quizId, questionId, questionUpdate) => {
+export const updateQuestion = async (quizId, questionId, questionUpdate) => {
     const quiz = await model.findById(quizId);
     const question = quiz.questions.id(questionId);
     if (question) {
@@ -31,7 +31,7 @@ export const updateQuestionInQuiz = async (quizId, questionId, questionUpdate) =
     }
     throw new Error('Question not found');
 };
-export const deleteQuestionFromQuiz = async (quizId, questionId) => {
+export const deleteQuestion = async (quizId, questionId) => {
     const quiz = await model.findById(quizId);
     const question = quiz.questions.id(questionId);
     if (question) {
