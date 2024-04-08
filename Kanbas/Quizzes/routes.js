@@ -2,34 +2,38 @@ import * as dao from "./dao.js";
 
 export default function QuizRoutes(app) {
   const createQuiz = async (req, res) => {
-    const quiz = await dao.createQuiz(req.body);
+    const { cid } = req.params;
+    const quiz = await dao.createQuiz(cid, req.body);
     res.json(quiz);
   };
 
-  const deleteQuiz = async (req, res) => {
-    const status = await dao.deleteQuiz(req.params.QuizId);
-    res.json(status);
-  };
-
-  const findAllQuizzes = async (req, res) => {
-    const quizzes = await dao.findAllQuizzes();
+  const findQuizzesForCourse = async (req, res) => {
+    const { cid } = req.params;
+    const quizzes = await dao.findQuizzesForCourse(cid);
     res.json(quizzes);
   };
 
   const findQuizById = async (req, res) => {
-    const quiz = await dao.findQuizById(req.params.QuizId);
+    const { qid } = req.params;
+    const quiz = await dao.findQuizById(qid);
     res.json(quiz);
   };
 
   const updateQuiz = async (req, res) => {
     const { quizId } = req.params;
     const status = await dao.updateQuiz(quizId, req.body);
-    currentQuiz = await dao.findQuizById(quizId);
     res.json(status);
   };
 
-  app.post("/api/quizzes", createQuiz);
-  app.get("/api/quizzes", findAllQuizzes);
+  const deleteQuiz = async (req, res) => {
+    const { qid } = req.params;
+    const status = await dao.deleteQuiz(qid);
+    res.json(status);
+  };
+  
+  
+  app.post("/api/courses/:cid/quizzes", createQuiz);
+  app.get("/api/courses/:cid/quizzes", findQuizzesForCourse); 
   app.get("/api/quizzes/:quizId", findQuizById);
   app.put("/api/quizzes/:quizId", updateQuiz);
   app.delete("/api/quizzes/:quizId", deleteQuiz);

@@ -39,8 +39,8 @@ const quizSchema = new mongoose.Schema({
   isPublished: Boolean,
   questions: [questionSchema], // Embedding Questions schema
   course: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Course' ,
+    type: String,
+    ref: 'Course' ,  // placeholder need to check
   },
 }, { collection: 'quizzes' });
 

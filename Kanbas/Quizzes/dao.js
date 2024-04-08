@@ -1,11 +1,14 @@
 import model from "./model.js";
 
 // actions for quizzes
-export const createQuiz = (quiz) => model.create(quiz); // plcaeholder
-export const findAllQuizs = () => model.find();
-export const findQuizById = (quizId) => model.findById(quizId);
-export const updateQuiz = (quizId, quiz) =>  model.updateOne({ _id: quizId }, { $set: quiz });
-export const deleteQuiz = (quizId) => model.deleteOne({ _id: quizId });
+export const createQuiz = async (courseId, quiz) => {
+  const quizData = { ...quiz, course: courseId };
+  return model.create(quizData); 
+};
+export const findAllQuizs = async(courseId) => model.find({ course: courseId });
+export const findQuizById = async(quizId) => model.findById(quizId);
+export const updateQuiz = async(quizId, quiz) =>  model.updateOne({ _id: quizId }, { $set: quiz });
+export const deleteQuiz = async(quizId) => model.deleteOne({ _id: quizId });
 
 // actions for questions
 export const addQuestionToQuiz = async (quizId, questionData) => {
