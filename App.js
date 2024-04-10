@@ -11,7 +11,7 @@ import AssignmentRoutes from "./Kanbas/Assignments/routes.js";
 import QuizRoutes from "./Kanbas/Quizzes/routes.js";
 import cors from "cors";
 
-mongoose.connect("mongodb://127.0.0.1:27017/kanbas");
+mongoose.connect(process.env.DB_CONNECTION_STRING);
 const app = express()
 app.use(express.json());
 

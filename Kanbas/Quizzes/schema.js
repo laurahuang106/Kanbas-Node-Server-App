@@ -38,10 +38,8 @@ const quizSchema = new mongoose.Schema({
   quizUntilDate: Date,
   isPublished: Boolean,
   questions: [questionSchema], // Embedding Questions schema
-  course: {
-    type: String,
-    ref: 'Course' ,  // placeholder need to check
-  },
+  course: String,
 }, { collection: 'quizzes' });
 
 export default quizSchema;
+
