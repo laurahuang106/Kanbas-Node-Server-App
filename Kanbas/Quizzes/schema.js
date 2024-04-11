@@ -28,7 +28,9 @@ const quizSchema = new mongoose.Schema({
   shuffleAnswers: Boolean,
   timeLimit: Number,
   multipleAttempts: Boolean,
-  showCorrectAnswers: Boolean,
+  showCorrectAnswers: { 
+    type: String,
+    enum: ['Immediately', 'AfterDueDate', 'Never'], },
   accessCode: String,
   oneQuestionPerTime: Boolean,
   webcamRequired: Boolean,
