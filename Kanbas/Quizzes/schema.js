@@ -1,6 +1,7 @@
 import mongoose from 'mongoose';
 
 const questionSchema = new mongoose.Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
   questionType: {
     type: String,
     enum: ['MultipleChoice', 'TrueFalse', 'FillInTheBlank'], 

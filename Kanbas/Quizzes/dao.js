@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import model from "./model.js";
 
 // actions for quizzes
@@ -36,14 +37,19 @@ export const updateQuestion = async (quizId, questionId, questionUpdate) => {
     }
     throw new Error('Question not found');
 };
-export const deleteQuestion = async (quizId, questionId) => {
-    const quiz = await model.findOne({ id: quizId });
-    const question = quiz.questions.id(questionId);
-    if (question) {
-      question.remove();
-      await quiz.save();
-      return quiz; 
-    }
+export const deleteQuestion = async (quizId, questionIndex) => {
+  const quiz = await model.findOne({ id: quizId });
+
+  if (!quiz) {
+    throw new Error('Quiz not found');
+  }
+
+  if (questionIndex < 0 || questionIndex >= quiz.questions.length) {
     throw new Error('Question not found');
+  }
+
+  quiz.questions.splice(questionIndex, 1);
+  await quiz.save();
+
+  return quiz;
 };
-  
