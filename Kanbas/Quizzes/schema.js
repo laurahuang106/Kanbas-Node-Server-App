@@ -21,7 +21,6 @@ const quizSchema = new mongoose.Schema({
     type: String,
     enum: ['GradedQuiz', 'PracticeQuiz', 'GradedSurvey', 'UngradedSurvey'], 
   },
-  quizPoints: Number,
   assignmentGroup: {
     type: String,
     enum: ['Quizzes', 'Exams', 'Assignments', 'Project'], 
