@@ -1,5 +1,12 @@
 import mongoose from 'mongoose';
 
+const answerSchema = new mongoose.Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
+  answer: String,
+  isCorrect: Boolean,
+});
+
+
 const questionSchema = new mongoose.Schema({
   _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
   questionType: {
@@ -11,6 +18,7 @@ const questionSchema = new mongoose.Schema({
   questionBody: String,
   correctAnswer: String,
   possibleAnswers: [String],
+  answers: [answerSchema],
 });
 
 const quizSchema = new mongoose.Schema({
