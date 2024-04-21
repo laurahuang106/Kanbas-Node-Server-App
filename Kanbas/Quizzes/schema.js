@@ -1,6 +1,14 @@
 import mongoose from 'mongoose';
 
+const answerSchema = new mongoose.Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
+  answer: String,
+  isCorrect: Boolean,
+});
+
+
 const questionSchema = new mongoose.Schema({
+  _id: { type: mongoose.Schema.Types.ObjectId, auto: true },
   questionType: {
     type: String,
     enum: ['MultipleChoice', 'TrueFalse', 'FillInTheBlank'], 
@@ -10,6 +18,7 @@ const questionSchema = new mongoose.Schema({
   questionBody: String,
   correctAnswer: String,
   possibleAnswers: [String],
+  answers: [answerSchema],
 });
 
 const quizSchema = new mongoose.Schema({
@@ -20,7 +29,6 @@ const quizSchema = new mongoose.Schema({
     type: String,
     enum: ['GradedQuiz', 'PracticeQuiz', 'GradedSurvey', 'UngradedSurvey'], 
   },
-  quizPoints: Number,
   assignmentGroup: {
     type: String,
     enum: ['Quizzes', 'Exams', 'Assignments', 'Project'], 

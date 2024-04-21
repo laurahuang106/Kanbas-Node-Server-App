@@ -1,3 +1,4 @@
+import mongoose from 'mongoose';
 import model from "./model.js";
 
 // actions for quizzes
@@ -23,27 +24,44 @@ export const findQuestionsOfQuiz = async (quizId) => {
 };
 
 export const findQuestionById = async (quizId, questionId) => {
-    const quiz = await model.findOne({ id: quizId });
-    return quiz.questions.id(questionId); // Mongoose subdocument querying syntax
+  const quiz = await model.findOne({ id: quizId });
+  return quiz.questions.id(questionId); // Mongoose subdocument querying syntax
 };
-export const updateQuestion = async (quizId, questionId, questionUpdate) => {
+export const updateQuestion = async (quizId, questionIndex, updatedQuestion) => {
+  try {
     const quiz = await model.findOne({ id: quizId });
-    const question = quiz.questions.id(questionId);
-    if (question) {
-      question.set(questionUpdate);
-      await quiz.save();
-      return question;
+
+    if (!quiz) {
+      return { success: false, error: 'Quiz not found' };
     }
-    throw new Error('Question not found');
-};
-export const deleteQuestion = async (quizId, questionId) => {
-    const quiz = await model.findOne({ id: quizId });
-    const question = quiz.questions.id(questionId);
-    if (question) {
-      question.remove();
-      await quiz.save();
-      return quiz; 
+
+    if (questionIndex < 0 || questionIndex >= quiz.questions.length) {
+      return { success: false, error: 'Invalid question index' };
     }
-    throw new Error('Question not found');
+
+    quiz.questions.set(questionIndex, updatedQuestion);
+    await quiz.save();
+
+    return { success: true, data: quiz.questions[questionIndex] };
+  } catch (error) {
+    console.error('Error updating question:', error);
+    return { success: false, error: 'Error updating question' };
+  }
 };
-  
+
+export const deleteQuestion = async (quizId, questionIndex) => {
+  const quiz = await model.findOne({ id: quizId });
+
+  if (!quiz) {
+    throw new Error('Quiz not found');
+  }
+
+  if (questionIndex < 0 || questionIndex >= quiz.questions.length) {
+    throw new Error('Question not found');
+  }
+
+  quiz.questions.splice(questionIndex, 1);
+  await quiz.save();
+
+  return quiz;
+};
