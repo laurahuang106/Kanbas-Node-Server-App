@@ -18,6 +18,18 @@ const courseSchema = new mongoose.Schema({
     type: Date,
     required: true
   },
+  department: {
+    type: String,
+    required: false
+  },
+  credit: {
+    type: Number,
+    required: false
+  },
+  description: {
+    type: String,
+    required: false
+  },
   image: String
 });
 

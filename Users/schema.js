@@ -6,6 +6,7 @@ const userSchema = new mongoose.Schema({
     email: String,
     lastName: String,
     dob: Date,
+    // courseRegistered: [String],
     role: {
       type: String,
       enum: ["STUDENT", "FACULTY", "ADMIN", "USER"],
